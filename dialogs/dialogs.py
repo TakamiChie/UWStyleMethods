@@ -85,12 +85,12 @@ class Dialogs(object):
     dialog.resizable(0, 0)
     dialog.attributes("-toolwindow", 1)
     dialog.title(self.caption)
-    uiframe = tkinter.Frame(dialog)
-    buttonframe = tkinter.Frame(dialog)
+    uiframe = tkinter.Frame(dialog, relief=tkinter.RAISED)
+    buttonframe = tkinter.Frame(dialog, relief=tkinter.RIDGE)
     self._prepare(uiframe)
-    uiframe.pack()
     self._setbuttons(buttonframe)
-    buttonframe.pack(padx=8, pady=8)
+    uiframe.pack(anchor="n")
+    buttonframe.pack(padx=8, pady=8, anchor="s")
     dialog.update_idletasks()
     screen_width = dialog.winfo_screenwidth()
     screen_height = dialog.winfo_screenheight()
@@ -100,33 +100,6 @@ class Dialogs(object):
     dialog.geometry("+%d+%d" % (x, y))
     dialog.mainloop()
     return self._retcode
-
-from tkinter import ttk
-class Combobox(Dialogs):
-  def set_item(self, *items):
-    self.items = items
-
-  def _prepare(self, frame):
-    """
-    Add Combobox.
-    """
-    super()._prepare(frame)
-    combo = ttk.Combobox(values=self.items)
-    combo.pack(padx=8, pady=8)
-
-  def show(self):
-    """
-    Show Dialog.
-
-    Returns
-    ----
-    Tuple
-    1: int|None
-      The button index. If you cancel the dialog, return None
-    2: str
-      Selected Items
-    """
-    return super().show()
 
 if __name__ == "__main__":
   d = Dialogs("TestDialog", "TestDialogMessage", Dialogs.BUTTON_OK)
@@ -139,7 +112,3 @@ if __name__ == "__main__":
     Dialogs.BUTTON_OK | Dialogs.BUTTON_CANCEL | Dialogs.BUTTON_IGNORE | Dialogs.BUTTON_ABORT |
     Dialogs.BUTTON_RETRY)
   print(d.show())
-
-  c = Combobox("TestDialog", "Select Item", Dialogs.BUTTON_OK)
-  c.set_item("test1", "test2", "test3")
-  print(c.show())
