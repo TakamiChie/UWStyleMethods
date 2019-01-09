@@ -25,7 +25,7 @@ class Dialogs(object):
     self.message = message
     self.buttons = buttons
 
-  def prepare(self, frame):
+  def __prepare(self, frame):
     """
     Perform initialization processing for each class.
     If you inherit this class and create a new dialog class, inherit this method to add your own control.
@@ -38,7 +38,7 @@ class Dialogs(object):
     label = tkinter.Label(frame, text=self.message)
     label.pack(padx=8, pady=8)
 
-  def setbuttons(self, frame):
+  def __setbuttons(self, frame):
     """
     Create a button bar to accept user interaction.
 
@@ -61,11 +61,11 @@ class Dialogs(object):
       if self.buttons & button[0] == button[0]:
         b = tkinter.Button(frame, command=button[0], text=button[1], 
           default="active" if first else "disabled")
-        b.bind("<1>", self.close)
+        b.bind("<1>", self.__close)
         b.pack(padx=4, pady=4, side="left")
         first = False
 
-  def close(self, event):
+  def __close(self, event):
     self._retcode = event.widget["command"]
     self._dialog.destroy()
 
@@ -82,9 +82,9 @@ class Dialogs(object):
     dialog.title(self.caption)
     uiframe = tkinter.Frame(dialog)
     buttonframe = tkinter.Frame(dialog)
-    self.prepare(uiframe)
+    self.__prepare(uiframe)
     uiframe.pack()
-    self.setbuttons(buttonframe)
+    self.__setbuttons(buttonframe)
     buttonframe.pack(padx=8, pady=8)
     dialog.update_idletasks()
     screen_width = dialog.winfo_screenwidth()
