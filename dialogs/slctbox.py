@@ -2,8 +2,21 @@ import dialogs
 from tkinter import ttk
 
 class Combobox(dialogs.Dialogs):
-  def set_item(self, *items):
-    self.items = items
+  def __init__(self, caption, message, buttons=0):
+    """
+    Initialize this class
+
+    Parameters
+    ----
+    caption: str
+      Caption string
+    message: str
+      Dialog message
+    buttons: int
+      Dialog buttons(Default=No buttons(0))
+    """
+    super().__init__(caption, message, buttons)
+    self.items = []
 
   def _prepare(self, frame):
     """
