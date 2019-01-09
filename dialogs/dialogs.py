@@ -25,7 +25,7 @@ class Dialogs(object):
     self.message = message
     self.buttons = buttons
 
-  def __prepare(self, frame):
+  def _prepare(self, frame):
     """
     Perform initialization processing for each class.
     If you inherit this class and create a new dialog class, inherit this method to add your own control.
@@ -38,7 +38,7 @@ class Dialogs(object):
     label = tkinter.Label(frame, text=self.message)
     label.pack(padx=8, pady=8)
 
-  def __setbuttons(self, frame):
+  def _setbuttons(self, frame):
     """
     Create a button bar to accept user interaction.
 
@@ -61,11 +61,11 @@ class Dialogs(object):
       if self.buttons & button[0] == button[0]:
         b = tkinter.Button(frame, command=button[0], text=button[1], 
           default="active" if first else "disabled")
-        b.bind("<1>", self.__close)
+        b.bind("<1>", self._close)
         b.pack(padx=4, pady=4, side="left")
         first = False
 
-  def __close(self, event):
+  def _close(self, event):
     self._retcode = event.widget["command"]
     self._dialog.destroy()
 
@@ -74,6 +74,11 @@ class Dialogs(object):
     Show dialog.
     To enable the dialog to be re-displayed, 
     the dialog is created with this method and is displayed and destroyed.
+
+    Returns
+    ----
+    retcode: int|None
+      The button index. If you cancel the dialog, return None
     """
     self._retcode = None
     self._dialog = dialog = tkinter.Tk()
@@ -82,9 +87,9 @@ class Dialogs(object):
     dialog.title(self.caption)
     uiframe = tkinter.Frame(dialog)
     buttonframe = tkinter.Frame(dialog)
-    self.__prepare(uiframe)
+    self._prepare(uiframe)
     uiframe.pack()
-    self.__setbuttons(buttonframe)
+    self._setbuttons(buttonframe)
     buttonframe.pack(padx=8, pady=8)
     dialog.update_idletasks()
     screen_width = dialog.winfo_screenwidth()
@@ -95,6 +100,33 @@ class Dialogs(object):
     dialog.geometry("+%d+%d" % (x, y))
     dialog.mainloop()
     return self._retcode
+
+from tkinter import ttk
+class Combobox(Dialogs):
+  def set_item(self, *items):
+    self.items = items
+
+  def _prepare(self, frame):
+    """
+    Add Combobox.
+    """
+    super()._prepare(frame)
+    combo = ttk.Combobox(values=self.items)
+    combo.pack(padx=8, pady=8)
+
+  def show(self):
+    """
+    Show Dialog.
+
+    Returns
+    ----
+    Tuple
+    1: int|None
+      The button index. If you cancel the dialog, return None
+    2: str
+      Selected Items
+    """
+    return super().show()
 
 if __name__ == "__main__":
   d = Dialogs("TestDialog", "TestDialogMessage", Dialogs.BUTTON_OK)
@@ -107,3 +139,7 @@ if __name__ == "__main__":
     Dialogs.BUTTON_OK | Dialogs.BUTTON_CANCEL | Dialogs.BUTTON_IGNORE | Dialogs.BUTTON_ABORT |
     Dialogs.BUTTON_RETRY)
   print(d.show())
+
+  c = Combobox("TestDialog", "Select Item", Dialogs.BUTTON_OK)
+  c.set_item("test1", "test2", "test3")
+  print(c.show())
