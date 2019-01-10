@@ -1,5 +1,6 @@
 import tkinter
 from tkinter import ttk
+import time
 class Dialogs(object):
   BUTTON_OK = 1
   BUTTON_CANCEL = 2
@@ -146,6 +147,7 @@ if __name__ == "__main__":
   d.timeout = 10
   print(d.show())
   d = Dialogs("YesNoDialog", "TestDialogMessage", Dialogs.BUTTON_YES | Dialogs.BUTTON_NO)
+  d.timeout = 0
   print(d.show())
   d = Dialogs("AllDialog", "TestDialogMessage", Dialogs.BUTTON_YES | Dialogs.BUTTON_NO |
     Dialogs.BUTTON_OK | Dialogs.BUTTON_CANCEL | Dialogs.BUTTON_IGNORE | Dialogs.BUTTON_ABORT |
