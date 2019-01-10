@@ -16,7 +16,6 @@ def dialog(message, timeout=0, buttons=DIALOGBUTTON_OK):
     Dialog messages
   timeout: int
     The dialog timeout.
-    This value is not valid for the current implementation.
   buttons: int
     Button flags.
     you can use `uwstyle.dialogs.DIALOGBUTTON_*` constants
@@ -27,7 +26,8 @@ def dialog(message, timeout=0, buttons=DIALOGBUTTON_OK):
     True if the Yes button is pressed, false if no button is pressed.
     None if the dialog times out when the X button is pressed.
   """
-  box = dialogs.Dialogs(__name__, message, dialogs.Dialogs.BUTTON_OK)
+  box = dialogs.Dialogs(__name__, message, buttons)
+  box.timeout = timeout
   return _retcode2bool(box.show())
 
 def select(message, items=[], timeout=0, buttons=DIALOGBUTTON_OK):
@@ -43,20 +43,21 @@ def select(message, items=[], timeout=0, buttons=DIALOGBUTTON_OK):
     Items
   timeout: int
     The dialog timeout.
-    This value is not valid for the current implementation.
   buttons: int
     Button flags.
     you can use `uwstyle.dialogs.DIALOGBUTTON_*` constants
 
   Returns
   ----
-  Tuple
-  1: bool|None
-    If the OK button is pressed, true if the X button is pressed, none if the dialog times out.
-  2: str
-    Selected Items
+  result: Tuple|None
+    If you cancel the dialog, return None
+    1: int
+      The button index
+    2: str
+      Selected Items
   """
   box = slctbox.Combobox(__name__, message, buttons)
+  box.timeout = timeout
   box.items = items
   return _retcode2bool(box.show())
 
@@ -100,7 +101,7 @@ def _retcode2bool(retcode):
 
 if __name__ == "__main__":
   print(dialog("test"))
-  print(dialog("test", buttons=DIALOGBUTTON_YESNO))
+  print(dialog("test", buttons=DIALOGBUTTON_YESNO, timeout=5))
   print(dialog("test", buttons=DIALOGBUTTON_RETRYIGNOREABORT))
   print(select("test", items=["A", "B", "C"]))
-  print(select("test", items=["A", "B", "C"], buttons=DIALOGBUTTON_YESNO))
+  print(select("test", items=["A", "B", "C"], timeout=5, buttons=DIALOGBUTTON_YESNO))
