@@ -1,5 +1,9 @@
-import dialogs
-import slctbox
+try:
+  from . import dialogs
+  from . import slctbox
+except ImportError:
+  import dialogs
+  import slctbox
 
 DIALOGBUTTON_OK = dialogs.Dialogs.BUTTON_OK
 DIALOGBUTTON_YESNO = dialogs.Dialogs.BUTTON_YES | dialogs.Dialogs.BUTTON_NO

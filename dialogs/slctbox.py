@@ -1,4 +1,7 @@
-import dialogs
+try:
+  from . import dialogs
+except ImportError:
+  import dialogs
 from tkinter import ttk
 
 class Combobox(dialogs.Dialogs):
