@@ -16,6 +16,7 @@ class Combobox(dialogs.Dialogs):
       Dialog buttons(Default=No buttons(0))
     """
     super().__init__(caption, message, buttons)
+    self._combo_select_value = None
     self.items = []
 
   def _prepare(self, frame):
@@ -40,16 +41,21 @@ class Combobox(dialogs.Dialogs):
 
     Returns
     ----
-    Tuple
-    1: int|None
-      The button index. If you cancel the dialog, return None
-    2: str
-      Selected Items
+    result: Tuple|None
+      If you cancel the dialog, return None
+      1: int
+        The button index
+      2: str
+        Selected Items
     """
     retcode = super().show()
-    return (retcode, self._combo_select_value)
+    return None if retcode is None else (retcode, self._combo_select_value)
 
 if __name__ == "__main__":
   c = Combobox("TestDialog", "Select Item", dialogs.Dialogs.BUTTON_OK)
-  c.set_item("test1", "test2", "test3")
+  c.items = ["test1", "test2", "test3"]
+  print(c.show())
+  c = Combobox("TestDialog", "Select Item", dialogs.Dialogs.BUTTON_YES | dialogs.Dialogs.BUTTON_NO)
+  c.items = ["test1", "test2", "test3"]
+  c.timeout = 10
   print(c.show())
