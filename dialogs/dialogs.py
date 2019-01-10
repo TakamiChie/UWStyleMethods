@@ -1,4 +1,5 @@
 import tkinter
+from tkinter import ttk
 class Dialogs(object):
   BUTTON_OK = 1
   BUTTON_CANCEL = 2
@@ -24,6 +25,7 @@ class Dialogs(object):
     self.caption = caption
     self.message = message
     self.buttons = buttons
+    self.timeout = 0
 
   def _prepare(self, frame):
     """
@@ -65,6 +67,36 @@ class Dialogs(object):
         b.pack(padx=4, pady=4, side="left")
         first = False
 
+  def _setprogress(self, frame):
+    """
+    Position the progress bar when the timeout is specified.
+
+    Parameters
+    ----
+    frame: Frame
+      A frame object for storing UI controls.
+    """
+    self._progressbar = pb = ttk.Progressbar(
+        frame,
+        orient=tkinter.HORIZONTAL,
+        length=100,
+        maximum=self.timeout * 1000,
+        mode='determinate')
+    pb.configure(value=self._inter_timeout)
+    pb.pack(fill=tkinter.BOTH, expand=1)
+    self._inter_lasttick = time.time() * 1000
+    self._dialog.after(100, self._inter_timecount)
+
+  def _inter_timecount(self):
+    lt = time.time() * 1000
+    self._inter_timeout -= (lt - self._inter_lasttick)
+    self._progressbar.configure(value=self._inter_timeout)
+    self._inter_lasttick = lt
+    if self._inter_timeout <= 0:
+      self._dialog.destroy()
+    else:
+      self._dialog.after(100, self._inter_timecount)
+
   def _close(self, event):
     self._retcode = event.widget["command"]
     self._dialog.destroy()
@@ -91,6 +123,11 @@ class Dialogs(object):
     self._setbuttons(buttonframe)
     uiframe.pack(anchor="n")
     buttonframe.pack(padx=8, pady=8, anchor="s")
+    if self.timeout > 0:
+      self._inter_timeout = self.timeout * 1000
+      timerframe = tkinter.Frame(dialog)
+      timerframe.pack(fill=tkinter.X, expand=1)
+      self._setprogress(timerframe)
     dialog.update_idletasks()
     screen_width = dialog.winfo_screenwidth()
     screen_height = dialog.winfo_screenheight()
@@ -103,12 +140,15 @@ class Dialogs(object):
 
 if __name__ == "__main__":
   d = Dialogs("TestDialog", "TestDialogMessage", Dialogs.BUTTON_OK)
+  d.timeout = 5
   print(d.show())
   d.message = "This is a Test"
+  d.timeout = 10
   print(d.show())
   d = Dialogs("YesNoDialog", "TestDialogMessage", Dialogs.BUTTON_YES | Dialogs.BUTTON_NO)
   print(d.show())
   d = Dialogs("AllDialog", "TestDialogMessage", Dialogs.BUTTON_YES | Dialogs.BUTTON_NO |
     Dialogs.BUTTON_OK | Dialogs.BUTTON_CANCEL | Dialogs.BUTTON_IGNORE | Dialogs.BUTTON_ABORT |
     Dialogs.BUTTON_RETRY)
+  d.timeout = 10
   print(d.show())
