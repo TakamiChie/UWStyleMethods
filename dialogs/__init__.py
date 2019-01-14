@@ -26,8 +26,13 @@ def dialog(message, timeout=0, buttons=DIALOGBUTTON_OK):
 
   Returns
   ----
-  state: bool|None
-    True if the Yes button is pressed, false if no button is pressed.
+  state: bool|str|None
+    The button state
+    * True if OK, YES.
+    * False if CANCEL, NO.
+    * "retry" if RETRY.
+    * "ignore" if IGNORE.
+    * "abort" if ABORT.
     None if the dialog times out when the X button is pressed.
   """
   box = dialogs.Dialogs(__name__, message, buttons)
@@ -55,8 +60,13 @@ def select(message, items=[], timeout=0, buttons=DIALOGBUTTON_OK):
   ----
   result: Tuple|None
     If you cancel the dialog, return None
-    1: int
-      The button index
+    1: bool|str
+      The button state
+      * True if OK, YES.
+      * False if CANCEL, NO.
+      * "retry" if RETRY.
+      * "ignore" if IGNORE.
+      * "abort" if ABORT.
     2: str
       Selected Items
   """
