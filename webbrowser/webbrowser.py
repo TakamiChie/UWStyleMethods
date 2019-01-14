@@ -148,7 +148,7 @@ if __name__ == "__main__":
   from webdriver import *
   import time
   args = []
-#  args = [r'--user-data-dir=D:\Users\TakamiChie\AppData\Local\Google\Chrome\User Data', "--prifile-dir=Default"]
+  args = [r'--user-data-dir=profdata', "--profile-dir=Default"]
   browser = WebBrowser(ChromeDriver(args))
   browser.get("https://sbc.yokohama/")
   browser.find(".wpcf7-form .your-name input").settext("this is a test")
