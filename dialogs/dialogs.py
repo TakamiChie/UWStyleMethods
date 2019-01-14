@@ -119,6 +119,7 @@ class Dialogs(object):
     self._dialog = dialog = tkinter.Tk()
     dialog.resizable(0, 0)
     dialog.attributes("-toolwindow", 1)
+    dialog.attributes("-topmost", 1)
     dialog.title(self.caption)
     uiframe = tkinter.Frame(dialog, relief=tkinter.RAISED)
     buttonframe = tkinter.Frame(dialog, relief=tkinter.RIDGE)
@@ -138,6 +139,7 @@ class Dialogs(object):
     x = screen_width/2 - size[0]/2
     y = screen_height/2 - size[1]/2
     dialog.geometry("+%d+%d" % (x, y))
+    dialog.after(1, lambda: dialog.focus_force())
     dialog.mainloop()
     return self._retcode
 
