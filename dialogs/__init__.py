@@ -65,6 +65,35 @@ def select(message, items=[], timeout=0, buttons=DIALOGBUTTON_OK):
   box.items = items
   return _retcode2bool(box.show())
 
+
+def choose(message, items=[], timeout=0):
+  """
+  Show Choose box.
+  This method is equivalent to `SLCTBOX(SLCT_BTN + SLCT_STR, timeout, message, items)` in UWSC
+
+  Parameters
+  ----
+  message: str
+    Dialog messages
+  items: list(str)
+    Items
+  timeout: int
+    The dialog timeout.
+
+  Returns
+  ----
+  result: Tuple|None
+    If you cancel the dialog, return None
+    1: int
+      The button index
+    2: str
+      Selected Items
+  """
+  box = slctbox.Choose(__name__, message)
+  box.timeout = timeout
+  box.items = items
+  return box.show()
+
 def _retcode2bool(retcode):
   """
   Converts the return code of a dialog to the return value of a method.
@@ -109,3 +138,5 @@ if __name__ == "__main__":
   print(dialog("test", buttons=DIALOGBUTTON_RETRYIGNOREABORT))
   print(select("test", items=["A", "B", "C"]))
   print(select("test", items=["A", "B", "C"], timeout=5, buttons=DIALOGBUTTON_YESNO))
+  print(choose("test", items=["A", "B", "C", "D", "E"]))
+  print(choose("test", items=["A", "B", "C", "D", "E"], timeout=5))

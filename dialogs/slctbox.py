@@ -2,6 +2,7 @@ try:
   from . import dialogs
 except ImportError:
   import dialogs
+import tkinter
 from tkinter import ttk
 
 class Combobox(dialogs.Dialogs):
@@ -54,11 +55,66 @@ class Combobox(dialogs.Dialogs):
     retcode = super().show()
     return None if retcode is None else (retcode, self._combo_select_value)
 
+class Choose(dialogs.Dialogs):
+  def __init__(self, caption, message):
+    """
+    Initialize this class
+
+    Parameters
+    ----
+    caption: str
+      Caption string
+    message: str
+      Dialog message
+    """
+    super().__init__(caption, message, 0)
+    self._button_select_value = None
+    self.items = []
+
+  def _prepare(self, frame):
+    """
+    Add Buttons.
+    """
+    super()._prepare(frame)
+    self._buttons = []
+    for (index, item) in enumerate(self.items):
+      b = tkinter.Button(frame, command=index, text=item)
+      b.pack(fill=tkinter.BOTH, expand=1)
+      b.bind("<1>", self._close)
+
+  def _close(self, event):
+    """
+    Override Close Method
+    """
+    self._button_select_value = self.items[event.widget["command"]]
+    super()._close(event)
+
+  def show(self):
+    """
+    Show Dialog.
+
+    Returns
+    ----
+    result: Tuple|None
+      If you cancel the dialog, return None
+      1: int
+        The button index
+      2: str
+        Selected Items
+    """
+    retcode = super().show()
+    return None if retcode is None else (retcode, self._button_select_value)
+
 if __name__ == "__main__":
   c = Combobox("TestDialog", "Select Item")
   c.items = ["test1", "test2", "test3"]
   print(c.show())
   c = Combobox("TestDialog", "Select Item", dialogs.Dialogs.BUTTON_YES | dialogs.Dialogs.BUTTON_NO)
   c.items = ["test1", "test2", "test3"]
+  c.timeout = 10
+  print(c.show())
+  c = Choose("TestDialog", "Select there. Which one would you choose?")
+  c.items = ["A", "B", "C", "D", "E"]
+  print(c.show())
   c.timeout = 10
   print(c.show())
