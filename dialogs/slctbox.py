@@ -81,6 +81,8 @@ class Choose(dialogs.Dialogs):
       b = tkinter.Button(frame, command=index, text=item)
       b.pack(fill=tkinter.BOTH, expand=1)
       b.bind("<1>", self._close)
+      b.bind("<Return>", self._close)
+      b.bind("<space>", self._close)
 
   def _close(self, event):
     """

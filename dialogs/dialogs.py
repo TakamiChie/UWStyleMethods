@@ -65,6 +65,8 @@ class Dialogs(object):
         b = tkinter.Button(frame, command=button[0], text=button[1], 
           default="active" if first else "disabled")
         b.bind("<1>", self._close)
+        b.bind("<Return>", self._close)
+        b.bind("<space>", self._close)
         b.pack(padx=4, pady=4, side="left")
         first = False
 
