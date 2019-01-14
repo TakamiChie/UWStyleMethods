@@ -64,6 +64,8 @@ class Dialogs(object):
       if self.buttons & button[0] == button[0]:
         b = tkinter.Button(frame, command=button[0], text=button[1], 
           default="active" if first else "disabled")
+        if first:
+          b.focus()
         b.bind("<1>", self._close)
         b.bind("<Return>", self._close)
         b.bind("<space>", self._close)
