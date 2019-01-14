@@ -5,7 +5,7 @@ except ImportError:
 from tkinter import ttk
 
 class Combobox(dialogs.Dialogs):
-  def __init__(self, caption, message, buttons=0):
+  def __init__(self, caption, message, buttons=dialogs.Dialogs.BUTTON_OK):
     """
     Initialize this class
 
@@ -16,7 +16,7 @@ class Combobox(dialogs.Dialogs):
     message: str
       Dialog message
     buttons: int
-      Dialog buttons(Default=No buttons(0))
+      Dialog buttons(Default=OK Button Only)
     """
     super().__init__(caption, message, buttons)
     self._combo_select_value = None
@@ -55,7 +55,7 @@ class Combobox(dialogs.Dialogs):
     return None if retcode is None else (retcode, self._combo_select_value)
 
 if __name__ == "__main__":
-  c = Combobox("TestDialog", "Select Item", dialogs.Dialogs.BUTTON_OK)
+  c = Combobox("TestDialog", "Select Item")
   c.items = ["test1", "test2", "test3"]
   print(c.show())
   c = Combobox("TestDialog", "Select Item", dialogs.Dialogs.BUTTON_YES | dialogs.Dialogs.BUTTON_NO)
