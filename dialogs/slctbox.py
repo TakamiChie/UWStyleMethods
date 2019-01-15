@@ -39,6 +39,7 @@ class Combobox(Dialogs):
     Override Close Method
     """
     self._combo_select_value = self._combo.get()
+    self._combo_select_index = self._combo.current()
     super()._close(event)
 
   def show(self):
@@ -53,9 +54,11 @@ class Combobox(Dialogs):
         The button index
       2: str
         Selected Items
+      3: int
+        Selected Item index
     """
     retcode = super().show()
-    return None if retcode is None else (retcode, self._combo_select_value)
+    return None if retcode is None else (retcode, self._combo_select_value, self._combo_select_index)
 
 class Choose(Dialogs):
   def __init__(self, caption, message):

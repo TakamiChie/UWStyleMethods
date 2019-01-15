@@ -70,6 +70,8 @@ def select(message, items=[], timeout=0, buttons=DIALOGBUTTON_OK):
       * "abort" if ABORT.
     2: str
       Selected Items
+    3: int
+      Selected Item index
   """
   box = Combobox(__name__, message, buttons)
   box.timeout = timeout
@@ -139,7 +141,7 @@ def _retcode2bool(retcode):
     ret = "ignore"
 
   if type(retcode) == tuple:
-    ret = (ret, retcode[1])
+    ret = tuple([ret]) + retcode[1:]
 
   return ret
 
