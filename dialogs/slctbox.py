@@ -1,14 +1,14 @@
 if __name__ == "__main__":
   import sys
   import pathlib
-  sys.path.append(str(pathlib.Path(__file__).parent.parent))
+  sys.path.append(str(pathlib.Path(__file__).parent.parent.parent))
 
-import dialogs
+from uwstyle.dialogs.dialogs import Dialogs
 import tkinter
 from tkinter import ttk
 
-class Combobox(dialogs.Dialogs):
-  def __init__(self, caption, message, buttons=dialogs.Dialogs.BUTTON_OK):
+class Combobox(Dialogs):
+  def __init__(self, caption, message, buttons=Dialogs.BUTTON_OK):
     """
     Initialize this class
 
@@ -57,7 +57,7 @@ class Combobox(dialogs.Dialogs):
     retcode = super().show()
     return None if retcode is None else (retcode, self._combo_select_value)
 
-class Choose(dialogs.Dialogs):
+class Choose(Dialogs):
   def __init__(self, caption, message):
     """
     Initialize this class
@@ -117,7 +117,7 @@ if __name__ == "__main__":
   c = Combobox("TestDialog", "Select Item")
   c.items = ["test1", "test2", "test3"]
   print(c.show())
-  c = Combobox("TestDialog", "Select Item", dialogs.Dialogs.BUTTON_YES | dialogs.Dialogs.BUTTON_NO)
+  c = Combobox("TestDialog", "Select Item", Dialogs.BUTTON_YES | Dialogs.BUTTON_NO)
   c.items = ["test1", "test2", "test3"]
   c.timeout = 10
   print(c.show())

@@ -1,14 +1,14 @@
 if __name__ == "__main__":
   import sys
   import pathlib
-  sys.path.append(str(pathlib.Path(__file__).parent.parent))
+  sys.path.append(str(pathlib.Path(__file__).parent.parent.parent))
 
-import dialogs
-import slctbox
+from uwstyle.dialogs.dialogs import Dialogs
+from uwstyle.dialogs.slctbox import Combobox, Choose
 
-DIALOGBUTTON_OK = dialogs.Dialogs.BUTTON_OK
-DIALOGBUTTON_YESNO = dialogs.Dialogs.BUTTON_YES | dialogs.Dialogs.BUTTON_NO
-DIALOGBUTTON_RETRYIGNOREABORT = dialogs.Dialogs.BUTTON_ABORT | dialogs.Dialogs.BUTTON_IGNORE | dialogs.Dialogs.BUTTON_RETRY
+DIALOGBUTTON_OK = Dialogs.BUTTON_OK
+DIALOGBUTTON_YESNO = Dialogs.BUTTON_YES | Dialogs.BUTTON_NO
+DIALOGBUTTON_RETRYIGNOREABORT = Dialogs.BUTTON_ABORT | Dialogs.BUTTON_IGNORE | Dialogs.BUTTON_RETRY
 
 def dialog(message, timeout=0, buttons=DIALOGBUTTON_OK):
   """
@@ -36,7 +36,7 @@ def dialog(message, timeout=0, buttons=DIALOGBUTTON_OK):
     * "abort" if ABORT.
     None if the dialog times out when the X button is pressed.
   """
-  box = dialogs.Dialogs(__name__, message, buttons)
+  box = Dialogs(__name__, message, buttons)
   box.timeout = timeout
   return _retcode2bool(box.show())
 
@@ -71,7 +71,7 @@ def select(message, items=[], timeout=0, buttons=DIALOGBUTTON_OK):
     2: str
       Selected Items
   """
-  box = slctbox.Combobox(__name__, message, buttons)
+  box = Combobox(__name__, message, buttons)
   box.timeout = timeout
   box.items = items
   return _retcode2bool(box.show())
@@ -100,7 +100,7 @@ def choose(message, items=[], timeout=0):
     2: str
       Selected Items
   """
-  box = slctbox.Choose(__name__, message)
+  box = Choose(__name__, message)
   box.timeout = timeout
   box.items = items
   return box.show()
@@ -127,15 +127,15 @@ def _retcode2bool(retcode):
   else:
     ret = retcode
 
-  if ret == dialogs.Dialogs.BUTTON_YES or ret == dialogs.Dialogs.BUTTON_OK:
+  if ret == Dialogs.BUTTON_YES or ret == Dialogs.BUTTON_OK:
     ret = True
-  elif ret == dialogs.Dialogs.BUTTON_NO or ret == dialogs.Dialogs.BUTTON_CANCEL:
+  elif ret == Dialogs.BUTTON_NO or ret == Dialogs.BUTTON_CANCEL:
     ret = False
-  elif ret == dialogs.Dialogs.BUTTON_ABORT:
+  elif ret == Dialogs.BUTTON_ABORT:
     ret = "abort"
-  elif ret == dialogs.Dialogs.BUTTON_RETRY:
+  elif ret == Dialogs.BUTTON_RETRY:
     ret = "retry"
-  elif ret == dialogs.Dialogs.BUTTON_IGNORE:
+  elif ret == Dialogs.BUTTON_IGNORE:
     ret = "ignore"
 
   if type(retcode) == tuple:
