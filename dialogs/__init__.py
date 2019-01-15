@@ -7,6 +7,7 @@ from uwstyle.dialogs.dialogs import Dialogs
 from uwstyle.dialogs.slctbox import Combobox, Choose
 
 DIALOGBUTTON_OK = Dialogs.BUTTON_OK
+DIALOGBUTTON_OKCANCEL = Dialogs.BUTTON_OK | Dialogs.BUTTON_CANCEL
 DIALOGBUTTON_YESNO = Dialogs.BUTTON_YES | Dialogs.BUTTON_NO
 DIALOGBUTTON_RETRYIGNOREABORT = Dialogs.BUTTON_ABORT | Dialogs.BUTTON_IGNORE | Dialogs.BUTTON_RETRY
 
