@@ -5,7 +5,6 @@ if __name__ == "__main__":
 
 from uwstyle.webbrowser.element import Element
 from uwstyle.webbrowser.driver import WebDriver
-VERSION = "0.0.1"
 
 class WebBrowser(object):
   """
