@@ -3,7 +3,7 @@ if __name__ == "__main__":
   import pathlib
   sys.path.append(str(pathlib.Path(__file__).parent.parent))
 
-  import dialogs
+import dialogs
 import tkinter
 from tkinter import ttk
 
@@ -79,8 +79,12 @@ class Choose(dialogs.Dialogs):
     """
     super()._prepare(frame)
     self._buttons = []
+    first = True
     for (index, item) in enumerate(self.items):
       b = tkinter.Button(frame, command=index, text=item)
+      if first:
+        b.focus()
+        first = False
       b.pack(fill=tkinter.BOTH, expand=1)
       b.bind("<1>", self._close)
       b.bind("<Return>", self._close)
