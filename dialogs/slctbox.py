@@ -1,6 +1,8 @@
-try:
-  from . import dialogs
-except ImportError:
+if __name__ == "__main__":
+  import sys
+  import pathlib
+  sys.path.append(str(pathlib.Path(__file__).parent.parent))
+
   import dialogs
 import tkinter
 from tkinter import ttk

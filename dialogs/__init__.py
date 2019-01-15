@@ -1,9 +1,10 @@
-try:
-  from . import dialogs
-  from . import slctbox
-except ImportError:
-  import dialogs
-  import slctbox
+if __name__ == "__main__":
+  import sys
+  import pathlib
+  sys.path.append(str(pathlib.Path(__file__).parent.parent))
+
+import dialogs
+import slctbox
 
 DIALOGBUTTON_OK = dialogs.Dialogs.BUTTON_OK
 DIALOGBUTTON_YESNO = dialogs.Dialogs.BUTTON_YES | dialogs.Dialogs.BUTTON_NO
