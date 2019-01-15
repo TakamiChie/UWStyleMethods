@@ -1,3 +1,0 @@
-{
-  "python.linting.pylintArgs": ["--extension-pkg-whitelist=dialogs"],
-}
