@@ -10,8 +10,8 @@ This module group is intended to achieve UWSC-like processing in Python by reali
 ## ToDo
 
 * Implementing a simple Dialog method
-  * [ ] (UWSC) MSGBOX method
-  * [ ] (UWSC) SLCTBOX method
+  * [x] (UWSC) MSGBOX method
+  * [x] (UWSC) SLCTBOX method
 * Methods to display messages on the screen
   * [ ] (UWSC) Baloon method
 * Ability to work with other GUI applications
@@ -21,10 +21,24 @@ This module group is intended to achieve UWSC-like processing in Python by reali
   * [ ] (UWSC) GETITEM method
   * [ ] (UWSC) GETSLCTL method
   * etc.
-* [ ] InternetExplorer operation Method (actually planned to be implemented as an Edge or Chrome operation)
-* [ ] Excel operation methods (other incompatible offices not supported)
+* [x] InternetExplorer operation Method (actually planned to be implemented as an Edge or Chrome operation)
+* [x] Excel operation methods (other incompatible offices not supported)
 
 The author basically used UWSC to realize a simple GUI, and the automation processing such as Excel was done mainly.
 Therefore, there is no plan to implement the function other than the above.
 
 However, pull requests are accepted.
+
+## Usage
+
+As a sub-module, the form to be used by adding this module is preferred.
+The directory name is "uwstyle" below.
+
+```python
+from uwstyle.dialogs import dialog, select, choose, DIALOGBUTTON_OK, DIALOGBUTTON_YESNO, DIALOGBUTTON_RETRYIGNOREABORT
+from uwstyle.webbrowser import WebBrowser
+from uwstyle.webbrowser.driver import ChromeDriver
+from uwstyle.excel import Excel
+```
+
+The usage is described in __init__.py under each directory, so refer to it.
