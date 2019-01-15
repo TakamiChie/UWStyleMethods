@@ -5,7 +5,7 @@ if __name__ == "__main__":
 
 import win32com.client
 from uwstyle.excel.workbook import Workbook
-from uwstyle.dialogs import select
+from uwstyle.dialogs import select, DIALOGBUTTON_OKCANCEL
 
 class Excel:
   """
@@ -79,8 +79,8 @@ class Excel:
     if len(files) == 1:
       return wb[0]
     else:
-      r = select(message, files)
-      if r is None:
+      r = select(message, files, buttons=DIALOGBUTTON_OKCANCEL)
+      if r is None or r[0] == False:
         return None
       else:
         return wb[r[2]]

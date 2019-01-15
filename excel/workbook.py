@@ -1,4 +1,4 @@
-from uwstyle.dialogs import select
+from uwstyle.dialogs import select, DIALOGBUTTON_OKCANCEL
 from uwstyle.excel.sheet import Sheet
 
 class Workbook:
@@ -73,8 +73,8 @@ class Workbook:
     if len(sheets) == 1:
       return ws[0]
     else:
-      r = select(message, sheets)
-      if r is None:
+      r = select(message, sheets, buttons=DIALOGBUTTON_OKCANCEL)
+      if r is None or r[0] == False:
         return None
       else:
         return ws[r[2]]
