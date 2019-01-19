@@ -56,6 +56,10 @@ class Excel:
     "Get/Set alert control flag"
     self.raw.displayalert = value
 
+  def add(self):
+    "Add a book."
+    return Workbook(self.excel, self.excel.workbooks.Add())
+
   ### Utility Methods.
 
   def chooseworkbook(self, message="Choose Workbook"):
