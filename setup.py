@@ -1,6 +1,7 @@
 from setuptools import setup, find_packages
 from pathlib import Path
 import re
+from uwstyle import VERSION
 
 requires = ["selenium>=3.141.0", "pywin32>=224"]
 description = ""
@@ -8,7 +9,7 @@ with open(Path(__file__).parent / "Readme.md") as f:
     description = f.read()
 setup(
     name='uwstyle',
-    version='0.0.2',
+    version=VERSION,
     description='Modules for handling UWSC styles in Python',
     long_description=description,
     url='https://github.com/TakamiChie/UWStyleMethods',
