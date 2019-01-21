@@ -1,7 +1,9 @@
 # UWStyleMethods
+
 Modules for handling UWSC styles in Python
 
 ## What's This
+
 UWSC is a macro software that automates the operation of applications on Windows.
 However, as of March 2018, the public site of the application becomes 403 error, and the trend of the future is in an unknown state.
 
