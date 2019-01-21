@@ -33,8 +33,13 @@ However, pull requests are accepted.
 
 ## Usage
 
-As a sub-module, the form to be used by adding this module is preferred.
-The directory name is "uwstyle" below.
+[Uploaded to PyPI!](https://pypi.org/project/uwstyle/)
+
+```PowerShell
+> pip install uwstyle
+```
+
+The usage is described in `__init__.py` under each directory, so refer to it.
 
 ```python
 from uwstyle.dialogs import dialog, select, choose, DIALOGBUTTON_OK, DIALOGBUTTON_YESNO, DIALOGBUTTON_RETRYIGNOREABORT
@@ -42,5 +47,3 @@ from uwstyle.webbrowser import WebBrowser
 from uwstyle.webbrowser.driver import ChromeDriver
 from uwstyle.excel import Excel
 ```
-
-The usage is described in __init__.py under each directory, so refer to it.
