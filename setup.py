@@ -1,13 +1,10 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 from pathlib import Path
 import re
 
 requires = ["selenium>=3.141.0", "pywin32>=224"]
-packages = ["uwstyle"] + [
-    "uwstyle." + str(p) for p in Path(".").iterdir()
-    if re.match(r"^([a-z]+)$", p.name)]
 description = ""
-with open("Readme.md") as f:
+with open(Path(__file__).parent / "Readme.md") as f:
     description = f.read()
 setup(
     name='uwstyle',
@@ -19,7 +16,7 @@ setup(
     author_email='chie@onpu-tamago.net',
     license='MIT',
     keywords='dialog utility',
-    packages=packages,
+    packages=find_packages(),
     install_requires=requires,
     classifiers=[
         'Programming Language :: Python :: 3.7',
