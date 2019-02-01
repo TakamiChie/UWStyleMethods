@@ -154,3 +154,15 @@ if __name__ == "__main__":
   print(select("test", items=["A", "B", "C"], timeout=5, buttons=DIALOGBUTTON_YESNO))
   print(choose("test", items=["A", "B", "C", "D", "E"]))
   print(choose("test", items=["A", "B", "C", "D", "E"], timeout=5))
+  print(dialog("""
+  this is a long long text dialog
+  """ * 20))
+  print(dialog("""
+  this is a long long text dialog
+  """ * 30))
+  print(dialog("""
+  this is a long long text dialog
+  """ * 40))
+  print(dialog("""
+  this is a long long text dialog
+  """ * 100))
