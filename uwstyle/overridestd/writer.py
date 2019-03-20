@@ -32,6 +32,7 @@ class OverrideManager:
     import sys
     sys.stdout = self._nativeout
     sys.stderr = self._nativeerr
+    self._dialog.close()
     atexit.unregister(self.quit)
 
 class OverrideWriter:
