@@ -11,12 +11,22 @@ class OverrideManager:
   """
   Manage overrides for stdout, stderr.
   """
-  def __init__(self):
+  def __init__(self, caption = __name__, geometry=None):
     """
     Start override stdout, stderr.
+
+    Parameters
+    ----
+    caption: str
+      Title bar caption.
+      The default is __name__.
+
+    geometry: str
+      The geometry of the window.
+      The default is None (leave it to Tkinter).
     """
     import sys
-    self._dialog = MessageWindow()
+    self._dialog = MessageWindow(caption=caption, geometry=geometry)
     self._nativeout = sys.stdout
     self._nativeerr = sys.stderr
     sys.stdout = OverrideWriter(self._dialog, NEUTRAL)
@@ -153,7 +163,7 @@ if __name__ == "__main__":
   print("finished.")
 
   # OverrideManager Test.
-  om2 = OverrideManager()
+  om2 = OverrideManager(caption="test", geometry="300x400")
   for i in range(3):
     print(f"test{i}")
     time.sleep(1)
