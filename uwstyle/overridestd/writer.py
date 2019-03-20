@@ -2,6 +2,7 @@ if __name__ == "__main__":
   import sys
   import pathlib
   sys.path.append(str(pathlib.Path(__file__).parent.parent.parent))
+import atexit
 
 NEUTRAL = "NEU"
 ERROR = "ERR"
@@ -20,6 +21,7 @@ class OverrideManager:
     self._nativeerr = sys.stderr
     sys.stdout = OverrideWriter(self._dialog, NEUTRAL)
     sys.stderr = OverrideWriter(self._dialog, ERROR)
+    atexit.register(self.quit)
 
   def quit(self):
     """
@@ -30,6 +32,7 @@ class OverrideManager:
     import sys
     sys.stdout = self._nativeout
     sys.stderr = self._nativeerr
+    atexit.unregister(self.quit)
 
 class OverrideWriter:
   """
@@ -147,3 +150,10 @@ if __name__ == "__main__":
   print("finished.")
   om.quit()
   print("finished.")
+
+  # OverrideManager Test.
+  om2 = OverrideManager()
+  for i in range(3):
+    print(f"test{i}")
+    time.sleep(1)
+  time.sleep(3)
