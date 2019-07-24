@@ -5,6 +5,7 @@ if __name__ == "__main__":
 
 from uwstyle.dialogs.dialogs import Dialogs
 from uwstyle.dialogs.slctbox import Combobox, Choose
+from uwstyle.overridestd.writer import OverrideManager
 
 VERSION = "0.0.4"
 
@@ -110,6 +111,19 @@ def choose(message, items=[], timeout=0):
   box.items = items
   return box.show()
 
+def print2message():
+  """
+  The message output to standard output, such as the `print` method, is displayed in the dialog.
+  This method is useful for logging when running programs in environments that do not have a console.
+
+  Returns
+  ----
+  overridemanager: OverrideManager
+    A reference to a manager that converts standard output to output to a dialog.
+    You can stop the output to the dialog by calling the `quit()` method of this object.
+  """
+  return OverrideManager("Output Window")
+
 def _retcode2bool(retcode):
   """
   Converts the return code of a dialog to the return value of a method.
@@ -168,3 +182,17 @@ if __name__ == "__main__":
   print(dialog("""
   this is a long long text dialog
   """ * 100))
+
+  m = print2message()
+  for i in range(3):
+    print(f"output{i}")
+  import time
+  time.sleep(2)
+  m.quit()
+  print("not displayed")
+  time.sleep(2)
+
+  print2message()
+  for i in range(3):
+    print(f"output{i}")
+  time.sleep(2)
