@@ -7,7 +7,7 @@ from uwstyle.dialogs.dialogs import Dialogs
 from uwstyle.dialogs.slctbox import Combobox, Choose
 from uwstyle.overridestd.writer import OverrideManager
 
-VERSION = "0.0.4"
+VERSION = "0.0.5"
 
 DIALOGBUTTON_OK = Dialogs.BUTTON_OK
 DIALOGBUTTON_OKCANCEL = Dialogs.BUTTON_OK | Dialogs.BUTTON_CANCEL
