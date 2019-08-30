@@ -17,7 +17,12 @@ setup(
     author_email='chie@onpu-tamago.net',
     license='MIT',
     keywords='dialog utility',
-    packages=find_packages(),
+    packages=["uwstyle",
+        "uwstyle.dialogs",
+        "uwstyle.excel",
+        "uwstyle.overridestd",
+        "uwstyle.webbrowser"
+    ],
     install_requires=requires,
     classifiers=[
         'Programming Language :: Python :: 3.7',
