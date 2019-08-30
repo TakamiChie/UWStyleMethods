@@ -5,9 +5,10 @@ if __name__ == "__main__":
 
 from uwstyle.dialogs.dialogs import Dialogs
 from uwstyle.dialogs.slctbox import Combobox, Choose
+import uwstyle.overridestd
 from uwstyle.overridestd.writer import OverrideManager
 
-VERSION = "0.0.5"
+VERSION = "0.0.6"
 
 DIALOGBUTTON_OK = Dialogs.BUTTON_OK
 DIALOGBUTTON_OKCANCEL = Dialogs.BUTTON_OK | Dialogs.BUTTON_CANCEL
