@@ -2,3 +2,4 @@
 profdata
 *.egg-info/*
 dist
+build
